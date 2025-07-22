@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulário - AI-Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-indigo-600">AI-Profile</h1>
+    <a href="index.html" class="text-indigo-600 hover:underline">← Voltar para o início</a>
+  </header>
+
+  <main class="max-w-3xl mx-auto bg-white mt-8 p-6 rounded shadow">
+    <h2 class="text-xl font-semibold mb-6">Preencha seus dados para gerar seu currículo</h2>
+    
+    <form id="curriculoForm" class="space-y-6">
+
+      <!-- Campos do formulário (igual antes) -->
+      <div>
+        <label class="block font-medium mb-1">Nome completo</label>
+        <input type="text" name="nome" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block font-medium mb-1">E-mail</label>
+          <input type="email" name="email" class="w-full border border-gray-300 rounded p-2">
+        </div>
+        <div>
+          <label class="block font-medium mb-1">Telefone</label>
+          <input type="text" name="telefone" class="w-full border border-gray-300 rounded p-2">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block font-medium mb-1">Cidade</label>
+          <input type="text" name="cidade" class="w-full border border-gray-300 rounded p-2">
+        </div>
+        <div>
+          <label class="block font-medium mb-1">Estado</label>
+          <input type="text" name="estado" class="w-full border border-gray-300 rounded p-2">
+        </div>
+      </div>
+
+      <div>
+        <label class="block font-medium mb-1">Objetivo profissional</label>
+        <textarea name="objetivo" rows="3" class="w-full border border-gray-300 rounded p-2"></textarea>
+      </div>
+
+      <div>
+        <label class="block font-medium mb-2">Experiências profissionais</label>
+        <div id="experiencias" class="space-y-4">
+          <div class="experiencia bg-gray-50 p-4 border rounded space-y-2">
+            <input type="text" name="cargo[]" placeholder="Cargo" class="w-full border border-gray-300 rounded p-2">
+            <input type="text" name="empresa[]" placeholder="Empresa" class="w-full border border-gray-300 rounded p-2">
+            <input type="text" name="periodo[]" placeholder="Período (ex: Jan/2022 - Dez/2023)" class="w-full border border-gray-300 rounded p-2">
+            <textarea name="descricao[]" placeholder="Descrição das atividades" class="w-full border border-gray-300 rounded p-2"></textarea>
+          </div>
+        </div>
+        <button type="button" onclick="adicionarExperiencia()" class="mt-2 text-sm text-indigo-600 hover:underline">+ Adicionar outra experiência</button>
+      </div>
+
+      <div>
+        <label class="block font-medium mb-2">Formação Acadêmica</label>
+        <div id="formacoes" class="space-y-4">
+          <div class="formacao bg-gray-50 p-4 border rounded space-y-2">
+            <input type="text" name="curso[]" placeholder="Curso" class="w-full border border-gray-300 rounded p-2">
+            <input type="text" name="instituicao[]" placeholder="Instituição" class="w-full border border-gray-300 rounded p-2">
+            <input type="text" name="ano_conclusao[]" placeholder="Ano de conclusão" class="w-full border border-gray-300 rounded p-2">
+          </div>
+        </div>
+        <button type="button" onclick="adicionarFormacao()" class="mt-2 text-sm text-indigo-600 hover:underline">+ Adicionar outra formação</button>
+      </div>
+
+      <div>
+        <label class="block font-medium mb-1">Habilidades</label>
+        <input type="text" name="habilidades" placeholder="Separe por vírgulas (ex: Excel, Liderança, Inglês)" class="w-full border border-gray-300 rounded p-2">
+      </div>
+
+      <div>
+        <label class="block font-medium mb-2">Idiomas</label>
+        <div id="idiomas" class="space-y-4">
+          <div class="idioma bg-gray-50 p-4 border rounded space-y-2">
+            <input type="text" name="idioma_nome[]" placeholder="Idioma (ex: Inglês)" class="w-full border border-gray-300 rounded p-2">
+            <input type="text" name="idioma_nivel[]" placeholder="Nível (ex: Intermediário)" class="w-full border border-gray-300 rounded p-2">
+          </div>
+        </div>
+        <button type="button" onclick="adicionarIdioma()" class="mt-2 text-sm text-indigo-600 hover:underline">+ Adicionar outro idioma</button>
+      </div>
+
+      <div class="text-center pt-6">
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700">
+          Gerar currículo (Simulado)
+        </button>
+      </div>
+
+    </form>
+  </main>
+
+  <script>
+    function adicionarExperiencia() {
+      const div = document.createElement('div');
+      div.className = 'experiencia bg-gray-50 p-4 border rounded space-y-2';
+      div.innerHTML = `
+        <input type="text" name="cargo[]" placeholder="Cargo" class="w-full border border-gray-300 rounded p-2">
+        <input type="text" name="empresa[]" placeholder="Empresa" class="w-full border border-gray-300 rounded p-2">
+        <input type="text" name="periodo[]" placeholder="Período (ex: Jan/2020 - Dez/2022)" class="w-full border border-gray-300 rounded p-2">
+        <textarea name="descricao[]" placeholder="Descrição das atividades" class="w-full border border-gray-300 rounded p-2"></textarea>
+      `;
+      document.getElementById('experiencias').appendChild(div);
+    }
+
+    function adicionarFormacao() {
+      const div = document.createElement('div');
+      div.className = 'formacao bg-gray-50 p-4 border rounded space-y-2';
+      div.innerHTML = `
+        <input type="text" name="curso[]" placeholder="Curso" class="w-full border border-gray-300 rounded p-2">
+        <input type="text" name="instituicao[]" placeholder="Instituição" class="w-full border border-gray-300 rounded p-2">
+        <input type="text" name="ano_conclusao[]" placeholder="Ano de conclusão" class="w-full border border-gray-300 rounded p-2">
+      `;
+      document.getElementById('formacoes').appendChild(div);
+    }
+
+    function adicionarIdioma() {
+      const div = document.createElement('div');
+      div.className = 'idioma bg-gray-50 p-4 border rounded space-y-2';
+      div.innerHTML = `
+        <input type="text" name="idioma_nome[]" placeholder="Idioma (ex: Espanhol)" class="w-full border border-gray-300 rounded p-2">
+        <input type="text" name="idioma_nivel[]" placeholder="Nível (ex: Básico, Fluente)" class="w-full border border-gray-300 rounded p-2">
+      `;
+      document.getElementById('idiomas').appendChild(div);
+    }
+
+    // Simulação de geração do currículo (SEM API)
+    document.getElementById("curriculoForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const dados = {
+        nome: form.nome.value,
+        email: form.email.value,
+        telefone: form.telefone.value,
+        cidade: form.cidade.value,
+        estado: form.estado.value,
+        objetivo: form.objetivo.value,
+        habilidades: form.habilidades.value,
+        experiencias: [],
+        formacoes: [],
+        idiomas: []
+      };
+
+      const cargos = form.querySelectorAll('input[name="cargo[]"]');
+      const empresas = form.querySelectorAll('input[name="empresa[]"]');
+      const periodos = form.querySelectorAll('input[name="periodo[]"]');
+      const descricoes = form.querySelectorAll('textarea[name="descricao[]"]');
+
+      for (let i = 0; i < cargos.length; i++) {
+        dados.experiencias.push({
+          cargo: cargos[i].value,
+          empresa: empresas[i].value,
+          periodo: periodos[i].value,
+          descricao: descricoes[i].value
+        });
+      }
+
+      const cursos = form.querySelectorAll('input[name="curso[]"]');
+      const instituicoes = form.querySelectorAll('input[name="instituicao[]"]');
+      const anos = form.querySelectorAll('input[name="ano_conclusao[]"]');
+
+      for (let i = 0; i < cursos.length; i++) {
+        dados.formacoes.push({
+          curso: cursos[i].value,
+          instituicao: instituicoes[i].value,
+          ano: anos[i].value
+        });
+      }
+
+      const idiomas = form.querySelectorAll('input[name="idioma_nome[]"]');
+      const niveis = form.querySelectorAll('input[name="idioma_nivel[]"]');
+
+      for (let i = 0; i < idiomas.length; i++) {
+        dados.idiomas.push({
+          idioma: idiomas[i].value,
+          nivel: niveis[i].value
+        });
+      }
+
+      // Monta um texto simulado do currículo
+      let texto = `CURRÍCULO SIMULADO\n\n`;
+      texto += `Nome: ${dados.nome}\n`;
+      texto += `Contato: ${dados.email} | ${dados.telefone}\n`;
+      texto += `Localização: ${dados.cidade} - ${dados.estado}\n\n`;
+
+      texto += `OBJETIVO PROFISSIONAL\n${dados.objetivo}\n\n`;
+
+      texto += `EXPERIÊNCIAS PROFISSIONAIS\n`;
+      dados.experiencias.forEach((e, i) => {
+        texto += `${i + 1}. ${e.cargo} - ${e.empresa} (${e.periodo})\nAtividades: ${e.descricao}\n\n`;
+      });
+
+      texto += `FORMAÇÃO ACADÊMICA\n`;
+      dados.formacoes.forEach((f, i) => {
+        texto += `${i + 1}. ${f.curso} - ${f.instituicao} (${f.ano})\n`;
+      });
+      texto += `\n`;
+
+      texto += `IDIOMAS\n`;
+      dados.idiomas.forEach((i, idx) => {
+        texto += `${idx + 1}. ${i.idioma} - ${i.nivel}\n`;
+      });
+      texto += `\n`;
+
+      texto += `HABILIDADES\n${dados.habilidades}\n`;
+
+      // Salva no localStorage e abre resultado
+      localStorage.setItem("curriculoGerado", texto);
+      window.location.href = "resultado.html";
+    });
+  </script>
+
+</body>
+</html>
